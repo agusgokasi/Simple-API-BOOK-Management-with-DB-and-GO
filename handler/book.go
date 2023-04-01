@@ -68,9 +68,9 @@ func (h HttpServer) UpdateBook(c *gin.Context) {
 		helper.BadRequest(c, err.Error())
 		return
 	}
-
+	in.ID = id
 	// call service
-	res, err := h.app.UpdateBook(id, in)
+	res, err := h.app.UpdateBook(in)
 	if err != nil {
 		helper.InternalServerError(c, err.Error())
 		return

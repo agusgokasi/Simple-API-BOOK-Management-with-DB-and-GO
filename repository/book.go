@@ -13,7 +13,7 @@ type BookRepo interface {
 	GetBooks() ([]model.Book, error)
 	CreateBook(in model.Book) (res model.Book, err error)
 	GetBookById(id int64) (res model.Book, err error)
-	UpdateBook(id int64, in model.Book) (res model.Book, err error)
+	UpdateBook(in model.Book) (res model.Book, err error)
 	DeleteBook(id int64) (err error)
 }
 
@@ -77,14 +77,14 @@ func (r Repo) GetBookById(id int64) (res model.Book, err error) {
 	return res, nil
 }
 
-func (r Repo) UpdateBook(id int64, in model.Book) (res model.Book, err error) {
+func (r Repo) UpdateBook(in model.Book) (res model.Book, err error) {
 	// Update book record in the database
 	err = r.db.QueryRow(
 		query.UpdateBook,
 		in.Title,
 		in.Author,
 		in.Desc,
-		id,
+		in.ID,
 	).Scan(
 		&res.ID,
 		&res.Title,
